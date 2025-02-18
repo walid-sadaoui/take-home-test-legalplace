@@ -13,6 +13,8 @@ export class Pharmacy {
   updateBenefitValue() {
     this.drugs = this.drugs.map((drug) => {
       if (drug.name === "Magic Pill") return drug;
+      drug.expiresIn = drug.expiresIn - 1;
+
       if (
         drug.name != "Herbal Tea" &&
         drug.name != "Fervex"
@@ -41,21 +43,19 @@ export class Pharmacy {
           }
         }
       }
-      drug.expiresIn = drug.expiresIn - 1;
-      if (drug.expiresIn < 0) {
-        if (drug.name != "Herbal Tea") {
-          if (drug.name != "Fervex") {
-            if (drug.benefit > 0) {
-              drug.benefit = drug.benefit - 1;
-            }
-          } else {
-            drug.benefit =
-              drug.benefit - drug.benefit;
+      if (drug.expiresIn >= 0) return drug; 
+      if (drug.name != "Herbal Tea") {
+        if (drug.name != "Fervex") {
+          if (drug.benefit > 0) {
+            drug.benefit = drug.benefit - 1;
           }
         } else {
-          if (drug.benefit < 50) {
-            drug.benefit = drug.benefit + 1;
-          }
+          drug.benefit =
+            drug.benefit - drug.benefit;
+        }
+      } else {
+        if (drug.benefit < 50) {
+          drug.benefit = drug.benefit + 1;
         }
       }
       return drug;
