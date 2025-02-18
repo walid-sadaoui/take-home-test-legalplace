@@ -11,4 +11,9 @@ describe("Pharmacy", () => {
       [new Drug("Dafalgan", 1, 1)],
     );
   });
+  it("should decrease expiresIn for and keep benefit to 0 if negative Dafalgan", () => {
+    expect(new Pharmacy([new Drug("Dafalgan", 2, 1)]).updateBenefitValue()).toEqual(
+      [new Drug("Dafalgan", 1, 0)],
+    );
+  });
 });
