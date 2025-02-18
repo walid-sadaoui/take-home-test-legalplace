@@ -41,4 +41,14 @@ describe("Pharmacy", () => {
       [new Drug("Fervex", -1, 0)],
     );
   });
+  it("should increase benefit for Herbal Tea", () => {
+    expect(new Pharmacy([new Drug("Herbal Tea", 7, 10)]).updateBenefitValue()).toEqual(
+      [new Drug("Herbal Tea", 6, 11)],
+    );
+  });
+  it("should increase benefit twice as fast after expiration for Herbal Tea", () => {
+    expect(new Pharmacy([new Drug("Herbal Tea", 0, 10)]).updateBenefitValue()).toEqual(
+      [new Drug("Herbal Tea", -1, 12)],
+    );
+  });
 });
