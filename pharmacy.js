@@ -19,52 +19,49 @@ export class Pharmacy {
         drug.name != "Herbal Tea" &&
         drug.name != "Fervex"
       ) {
-        if (drug.benefit > 0) {
-          if (drug.name === "Dafalgan") {
-            drug.benefit = drug.benefit - 2 >= 0 ? drug.benefit - 2 : 0;
-          } else {
-            drug.benefit = drug.benefit - 1;
-          }
+        if (drug.name === "Dafalgan") {
+          drug.benefit = drug.benefit - 2;
+        } else {
+          drug.benefit = drug.benefit - 1;
         }
       } else {
-        if (drug.benefit < 50) {
-          drug.benefit = drug.benefit + 1;
-          if (drug.name == "Fervex") {
-            if (drug.expiresIn < 11) {
-              if (drug.benefit < 50) {
-                drug.benefit = drug.benefit + 1;
-              }
-            }
-            if (drug.expiresIn < 6) {
-              if (drug.benefit < 50) {
-                drug.benefit = drug.benefit + 1;
-              }
-            }
+        drug.benefit = drug.benefit + 1;
+        if (drug.name == "Fervex") {
+          if (drug.expiresIn < 11) {
+            drug.benefit = drug.benefit + 1;
+          }
+          if (drug.expiresIn < 6) {
+            drug.benefit = drug.benefit + 1;
           }
         }
       }
-      if (!this.isDrugExpired(drug)) return drug; 
-      if (drug.name != "Herbal Tea") {
-        if (drug.name != "Fervex") {
-          if (drug.benefit > 0) {
+      if (this.isDrugExpired(drug)) {
+        if (drug.name != "Herbal Tea") {
+          if (drug.name != "Fervex") {
             drug.benefit = drug.benefit - 1;
+          } else {
+            drug.benefit =
+              drug.benefit - drug.benefit;
           }
         } else {
-          drug.benefit =
-            drug.benefit - drug.benefit;
-        }
-      } else {
-        if (drug.benefit < 50) {
           drug.benefit = drug.benefit + 1;
         }
       }
+      drug = this.validateDrugBenefit(drug);
       return drug;
     })
 
     return this.drugs;
   }
+
   isDrugExpired(drug) {
     return drug.expiresIn < 0;
+  }
+
+  validateDrugBenefit(drug) {
+    if (drug.benefit > 50) drug.benefit = 50;
+    if (drug.benefit < 0) drug.benefit = 0;
+    return drug;
   }
 }
 
