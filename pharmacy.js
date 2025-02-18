@@ -43,7 +43,7 @@ export class Pharmacy {
           }
         }
       }
-      if (drug.expiresIn >= 0) return drug; 
+      if (!this.isDrugExpired(drug)) return drug; 
       if (drug.name != "Herbal Tea") {
         if (drug.name != "Fervex") {
           if (drug.benefit > 0) {
@@ -63,4 +63,8 @@ export class Pharmacy {
 
     return this.drugs;
   }
+  isDrugExpired(drug) {
+    return drug.expiresIn < 0;
+  }
 }
+
