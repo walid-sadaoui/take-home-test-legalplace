@@ -11,7 +11,7 @@ export class Pharmacy {
     this.drugs = drugs;
   }
   updateBenefitValue() {
-    for (const drug of this.drugs) {
+    this.drugs = this.drugs.map((drug) => {
       if (
         drug.name != "Herbal Tea" &&
         drug.name != "Fervex"
@@ -61,7 +61,8 @@ export class Pharmacy {
           }
         }
       }
-    }
+      return drug;
+    })
 
     return this.drugs;
   }
