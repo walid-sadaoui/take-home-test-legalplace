@@ -51,4 +51,12 @@ describe("Pharmacy", () => {
       [new Drug("Herbal Tea", -1, 12)],
     );
   });
+  it("should keep benefit to 50 if bigger than 50", () => {
+    expect(new Pharmacy([new Drug("Herbal Tea", 20, 50)]).updateBenefitValue()).toEqual(
+      [new Drug("Herbal Tea", 19, 50)],
+    );
+    expect(new Pharmacy([new Drug("Fervex", 20, 50)]).updateBenefitValue()).toEqual(
+      [new Drug("Fervex", 19, 50)],
+    );
+  });
 });
